@@ -717,42 +717,44 @@ class ExportController extends Controller
             $reader = new \PhpOffice\PhpSpreadsheet\Reader\Xlsx;
             $spreadsheet = $reader->load($file);
             $sheet = $spreadsheet->getActiveSheet()->toArray(null, true, true, true);
-
-            for ($i = 3; $i <= count($sheet); $i++) {
+            $id = [];
+            for ($i = 3; $i < count($sheet); $i++) {
                 $A = $sheet[$i]['A'];
                 $B = $sheet[$i]['B'];
                 $C = $sheet[$i]['C'];
- 
-                $invoice = DB::selectOne("SELECT max(a.urutan) as urutan FROM invoice_therapy as a");
-                $no_order = empty($invoice->urutan) ? 1001 : $invoice->urutan + 1;
+                if (!empty($A) && !empty($B) && !empty($C)) {
 
-                $getPasien = DB::table('dt_pasien')->where('member_id', $A)->first();
-                $getTerapi = DB::table('dt_therapy as a')
-                    ->join('dt_paket as b', 'a.id_paket', 'b.id_paket')
-                    ->where('a.nama_therapy', $B)
-                    ->first();
+                    $invoice = DB::selectOne("SELECT max(a.urutan) as urutan FROM invoice_therapy as a");
+                    $no_order = empty($invoice->urutan) ? 1001 : $invoice->urutan + 1;
 
-                DB::table('saldo_therapy')->insert([
-                    'no_order' => 'HK-' . $no_order,
-                    'id_paket' => $getTerapi->id_paket,
-                    'debit' => $C,
-                    'id_therapist' => $getTerapi->id_therapy,
-                    'kredit' => 0,
-                    'total_rp' => $getTerapi->harga * $C,
-                    'member_id' => $getPasien->id_pasien,
-                    'tgl' => date('Y-m-d'),
-                    'admin' => 'import',
-                ]);
+                    $getPasien = DB::table('dt_pasien')->where('member_id', $A)->first();
+                    $getTerapi = DB::table('dt_therapy as a')
+                        ->join('dt_paket as b', 'a.id_paket', 'b.id_paket')
+                        ->where('a.nama_therapy', $B)
+                        ->first();
+                    DB::table('saldo_therapy')->insert([
+                        'no_order' => 'HK-' . $no_order,
+                        'id_paket' => $getTerapi->id_paket,
+                        'debit' => $C,
+                        'id_therapist' => $getTerapi->id_therapy,
+                        'kredit' => 0,
+                        'total_rp' => $getTerapi->harga * $C,
+                        'member_id' => $getPasien->id_pasien,
+                        'tgl' => date('Y-m-d'),
+                        'admin' => 'import',
+                    ]);
 
-                DB::table('invoice_therapy')->insert([
-                    'no_order' => 'HK-' . $no_order,
-                    'urutan' => $no_order,
-                    'pembayaran' => 'CASH',
-                    'rupiah' => 0,
-                    'member_id' => $getPasien->id_pasien,
-                    'tgl' => date('Y-m-d'),
-                    'admin' => 'import',
-                ]);
+                    DB::table('invoice_therapy')->insert([
+                        'no_order' => 'HK-' . $no_order,
+                        'urutan' => $no_order,
+                        'pembayaran' => 'CASH',
+                        'rupiah' => 0,
+                        'member_id' => $getPasien->id_pasien,
+                        'tgl' => date('Y-m-d'),
+                        'admin' => 'import',
+                    ]);
+                }
+                break;
             }
 
             return redirect()->route('dt_paket_pasien')->with('sukses', 'Berhasil Import Data');
@@ -760,7 +762,7 @@ class ExportController extends Controller
             return redirect()->route('dt_paket_pasien')->with('error', 'File tidak didukung');
         }
     }
-    
+
     // yang asli
     // public function importDataPasien(Request $r)
     // {
