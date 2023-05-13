@@ -597,19 +597,26 @@ class ExportController extends Controller
                 }
                 if ($numrow > 2) {
                     if ($row['B'] == '') {
-                        dd($row['C']);
-                        $member_id = DB::selectOne("SELECT max(member_id) as member_id FROM `dt_pasien` ORDER BY member_id ASC;");
-                        $member_id = empty($member_id->member_id) ? '5001' : $member_id->member_id + 1;
 
-                        DB::table('dt_pasien')->insert([
-                            'member_id' => $row['C'] == '' ? $member_id : $row['C'],
-                            'nama_pasien' => $row['D'],
-                            'alamat' => $row['E'],
-                            'tgl_lahir' => $row['F'],
-                            'no_hp' => $row['G'],
-                            'tgl' => date('Y-m-d'),
-                        ]);
-                        $numrow++;
+                        $sudahAda = DB::table('dt_pasien')->where([['member_id', $row['C'], ['nama_pasien', $row['D']]]])->first();
+
+                        if (empty($sudahAda)) {
+
+                            $member_id = DB::selectOne("SELECT max(member_id) as member_id FROM `dt_pasien` ORDER BY member_id ASC;");
+                            $member_id = empty($member_id->member_id) ? '5001' : $member_id->member_id + 1;
+
+                            DB::table('dt_pasien')->insert([
+                                'member_id' => $row['C'] == '' ? $member_id : $row['C'],
+                                'nama_pasien' => $row['D'],
+                                'alamat' => $row['E'],
+                                'tgl_lahir' => $row['F'],
+                                'no_hp' => $row['G'],
+                                'tgl' => date('Y-m-d'),
+                            ]);
+                            $numrow++;
+                        } else {
+                            return redirect()->route('data_pasien')->with('error', 'Duplikat Data : '. $row['C'] . ' - ' . $row['D']);
+                        }
                     }
                 }
             }
