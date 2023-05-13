@@ -10,7 +10,7 @@ class HistoryTherapistController extends Controller
     public function index()
     {
         $data = [
-            'title' => 'History Paket',
+            'title' => 'History Therapist',
             'history' => DB::table('dt_therapy')->where('nonaktif', 'T')->get()
         ];
         return view('history.history',$data);
