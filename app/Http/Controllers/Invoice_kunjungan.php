@@ -123,13 +123,12 @@ class Invoice_kunjungan extends Controller
     {
         $tgl1 = date('Y-m-d');
 
-        $kunjungan = DB::selectOne("SELECT a.tgl, a.no_order, c.member_id, c.nama_pasien, b.nama_therapy, d.nama_paket, a.kredit
+        $kunjungan = DB::selectOne("SELECT c.member_id as member,a.tgl, a.no_order, c.member_id, c.nama_pasien, b.nama_therapy, d.nama_paket, a.kredit
         FROM saldo_therapy as a
         left JOIN dt_therapy as b on b.id_therapy = a.id_therapist
         left join dt_pasien as c on c.id_pasien = a.member_id
         left join dt_paket as d on d.id_paket = a.id_paket
         where a.tgl = '$tgl1' and  a.kredit != '0';");
-
 
         $user = DB::table('users')->where('role', 'presiden')->get();
 
