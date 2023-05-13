@@ -113,7 +113,7 @@ class Data_paket_pasien extends Controller
                 'debit' => $r->jumlah[$i],
                 'id_therapist' => $r->id_therapist[$i],
                 'kredit' => 0,
-                'total_rp' => $harga * $r->jumlah,
+                'total_rp' => $harga * $r->jumlah[$i],
                 'member_id' => $r->member_id,
                 'tgl' => date('Y-m-d'),
                 'admin' => auth()->user()->name,
