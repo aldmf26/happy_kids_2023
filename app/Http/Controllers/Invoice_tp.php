@@ -203,7 +203,6 @@ class Invoice_tp extends Controller
         DB::table('invoice_therapy')->where('no_order', $id)->update(['nonaktif' => 'Y']);
         DB::table('saldo_therapy')->where('no_order', $id)->update(['nonaktif' => 'Y']);
         DB::table('invoice_registrasi')->where('no_order', $id)->update(['nonaktif' => 'Y']);
-        // DB::table('invoice_kunjungan')->where('member_id', $member)->delete();
         return redirect()->route('invoice_tp')->with('sukses', 'Berhasil hapus invoice');
     }
 
