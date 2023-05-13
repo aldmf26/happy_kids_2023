@@ -11,7 +11,7 @@ class HistoryTherapistController extends Controller
     {
         $data = [
             'title' => 'History Paket',
-            'history' => DB::table('dt_therapy')->get()
+            'history' => DB::table('dt_therapy')->where('nonaktif', 'T')->get()
         ];
         return view('history.history',$data);
     }
@@ -25,7 +25,7 @@ class HistoryTherapistController extends Controller
             'detail' => DB::select("SELECT b.no_order,b.tgl,a.nama_therapy,b.kredit,c.nama_paket,d.member_id,d.nama_pasien FROM dt_therapy a
             LEFT JOIN saldo_therapy b ON a.id_therapy = b.id_therapist
             LEFT JOIN dt_paket c ON b.id_paket = c.id_paket
-            LEFT JOIN dt_pasien as d ON b.member_id = d.member_id
+            LEFT JOIN dt_pasien as d ON b.member_id = d.id_pasien
             WHERE b.tgl BETWEEN '$tgl1' AND '$tgl2' AND a.id_therapy = '$r->id_therapy' AND b.kredit != 0
             GROUP BY b.id_saldo_therapy")
         ];
