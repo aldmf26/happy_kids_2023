@@ -238,7 +238,7 @@ class ExportController extends Controller
                 $saldo = DB::selectOne("SELECT a.member_id, a.id_paket, b.nama_therapy, SUM(a.debit) AS debit, SUM(a.kredit) AS kredit
                 FROM saldo_therapy AS a
                 LEFT JOIN dt_therapy AS b ON b.id_therapy = a.id_therapist
-                WHERE a.member_id = '$d->member_id' AND a.id_paket ='$p->id_paket'
+                WHERE a.member_id = '$d->id_pasien' AND a.id_paket ='$p->id_paket'
                 GROUP BY a.member_id");
                 $sisa_saldo = empty($saldo->debit) ? '' : $saldo->debit - $saldo->kredit;
 
