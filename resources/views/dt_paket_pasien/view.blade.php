@@ -5,6 +5,7 @@
             <th>Nama Therapist</th>
             <th>Nama Paket</th>
             <th>Jumlah Paket</th>
+            <th>Rupiah</th>
             <th>Status</th>
             <th>Aksi</th>
         </tr>
@@ -18,6 +19,7 @@
             </td>
             <td>{{$i->nama_paket}}</td>
             <td>{{$i->debit - $i->kredit}}</td>
+            <td>{{ number_format($i->harga * ($i->debit - $i->kredit),0) }}</td>
             <td>
                 <span class="badge bg-{{ $i->debit - $i->kredit != '1' ? 'success' : 'danger' }}">
                     {{ $i->debit - $i->kredit != '1' ? 'ok' : 'Paket mau habis' }}

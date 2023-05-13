@@ -31,7 +31,7 @@ class Data_paket_pasien extends Controller
     {
         $member_id =  $r->member_id;
         $data = [
-            'invoice' => DB::select("SELECT a.id_saldo_therapy,a.id_paket, b.nama_paket, c.id_therapy,c.nama_therapy, sum(a.debit) as debit, sum(a.kredit) as kredit, a.total_rp, a.no_order, a.member_id
+            'invoice' => DB::select("SELECT a.id_saldo_therapy,a.id_paket, b.nama_paket,b.harga, c.id_therapy,c.nama_therapy, sum(a.debit) as debit, sum(a.kredit) as kredit, a.total_rp, a.no_order, a.member_id
             FROM saldo_therapy as a 
             LEFT JOIN dt_paket as b on b.id_paket = a.id_paket
             LEFT JOIN dt_therapy AS c ON c.id_therapy = a.id_therapist
