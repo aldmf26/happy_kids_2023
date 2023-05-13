@@ -65,7 +65,7 @@
                             <tr>
                                 <td>{{ $i++ }}</td>
                                 <td>{{ date('d-m-Y', strtotime($n->tgl)) }}</td>
-                                <td>{{ $n->member_id }}</td>
+                                <td>{{ kode($n->member_id) }}</td>
                                 <td>{{ $n->no_order }}</td>
                                 <td>
                                     <span class="teksLimit{{ $n->id_dokter }}">{{ Str::limit($n->nm_dokter, '14', '...')
@@ -231,7 +231,7 @@
                             <select name="member_id" id="" class="select2 pilih_rek">
                                 <option value="">--Pilih data--</option>
                                 @foreach ($dt_pasien as $d)
-                                <option value="{{ $d->id_pasien }}">{{ $d->member_id }} - {{ $d->nama_pasien }}
+                                <option value="{{ $d->id_pasien }}">{{ kode($d->member_id) }} - {{ $d->nama_pasien }}
                                     - {{ $d->tgl_lahir }}</option>
                                 @endforeach
                             </select>

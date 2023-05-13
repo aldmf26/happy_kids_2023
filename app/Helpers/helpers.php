@@ -16,6 +16,13 @@ if (! function_exists('greet')) {
     }
 }
 
+if (!function_exists('kode')) {
+    function kode($kode)
+    {
+        return str_pad($kode, 5, '0', STR_PAD_LEFT);
+    }
+}
+
 class Nonaktif {
     public static function edit($tbl, $kolom, $kolomValue, $data)
     {

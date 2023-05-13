@@ -1,7 +1,7 @@
 <table class="table">
     @php
         $data = [
-            'Member ID' => $pasien->member_id,
+            'Member ID' => kode($pasien->member_id),
             'Nama' => $pasien->nama_pasien,
             'Tgl Lahir' => $pasien->tgl_lahir,
             'Alamat' => $pasien->alamat,

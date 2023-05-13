@@ -59,7 +59,7 @@
                                         @foreach ($data_paket_pasien as $n)
                                             <tr>
                                                 <td>{{ $i++ }}</td>
-                                                <td>{{ $n->member_id }}</td>
+                                                <td>{{ kode($n->member_id) }}</td>
                                                 <td>{{ $n->nama_pasien }}</td>
                                                 <td>
                                                     <span class="badge bg-{{ $n->saldo == null ? 'success' : 'danger' }}">
@@ -108,7 +108,7 @@
                                     <select name="member_id" id="" class="select2 pilih_rek">
                                         <option value="">--Pilih data--</option>
                                         @foreach ($dt_pasien as $d)
-                                            <option value="{{ $d->id_pasien }}">{{ $d->member_id }} -
+                                            <option value="{{ $d->id_pasien }}">{{ kode($d->member_id) }} -
                                                 {{ $d->nama_pasien }} - {{ $d->tgl_lahir }}</option>
                                         @endforeach
                                     </select>

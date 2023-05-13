@@ -63,7 +63,7 @@ class ExportController extends Controller
         foreach ($periksa as $no => $d) {
             $sheet2->setCellValue("A$kolper", $no + 1)
                 ->setCellValue("B$kolper", $d->tgl)
-                ->setCellValue("C$kolper", $d->member_id)
+                ->setCellValue("C$kolper", kode($d->member_id))
                 ->setCellValue("D$kolper", $d->no_order)
                 ->setCellValue("E$kolper", $d->nm_dokter)
                 ->setCellValue("F$kolper", $d->nama_pasien)
@@ -99,7 +99,7 @@ class ExportController extends Controller
             $sheet3
                 ->setCellValue("A$kolreg", $no + 1)
                 ->setCellValue("B$kolreg", $r->tgl)
-                ->setCellValue("C$kolreg", $r->member_id)
+                ->setCellValue("C$kolreg", kode($r->member_id))
                 ->setCellValue("D$kolreg", $r->no_order)
                 ->setCellValue("E$kolreg", $r->nama_pasien)
                 ->setCellValue("F$kolreg", $r->status)
@@ -138,7 +138,7 @@ class ExportController extends Controller
             $sheet4
                 ->setCellValue("A$koltp", $no + 1)
                 ->setCellValue("B$koltp", $r->tgl)
-                ->setCellValue("C$koltp", $r->member_id)
+                ->setCellValue("C$koltp", kode($r->member_id))
                 ->setCellValue("D$koltp", $r->no_order)
                 ->setCellValue("E$koltp", $r->nama_pasien)
                 ->setCellValue("F$koltp", 'paid')
@@ -174,7 +174,7 @@ class ExportController extends Controller
             $sheet5
                 ->setCellValue("A$kolkun", $no + 1)
                 ->setCellValue("B$kolkun", $r->tgl)
-                ->setCellValue("C$kolkun", $r->member_id)
+                ->setCellValue("C$kolkun", kode($r->member_id))
                 ->setCellValue("D$kolkun", $r->no_order)
                 ->setCellValue("E$kolkun", $r->nama_pasien);
 
@@ -194,6 +194,7 @@ class ExportController extends Controller
         $sheet6->getColumnDimension('F')->setWidth(13.73);
         $sheet6->getColumnDimension('E')->setWidth(45.73);
         $sheet6->getColumnDimension('G')->setWidth(25.00);
+        
         $sheet6
             ->setCellValue('A1', 'No')
             ->setCellValue('B1', 'Id Pasien')
@@ -206,6 +207,7 @@ class ExportController extends Controller
 
         foreach ($paket as $i => $p) {
             $s = $i;
+
             $abjad1 = chr(96 + ($i + 7 % 26) + $i + 1);
             $abjad2 = chr(96 + ($i + 8 % 26) + $s + 1);
 
@@ -213,7 +215,7 @@ class ExportController extends Controller
             $sheet6->getColumnDimension($abjad2)->setWidth(15.82);
 
             $sheet6->setCellValue($abjad1 . '1', $p->nama_paket);
-            $sheet6->setCellValue($abjad2 . '1', 'terapis');
+            $sheet6->setCellValue($abjad2 . '1', 'Terapis');
             $i++;
         }
         $sheet6->getStyle('A1:' . $abjad2 . '1')->getFont()->setBold(true);
@@ -224,7 +226,7 @@ class ExportController extends Controller
         foreach ($pasien as $no => $d) {
             $sheet6->setCellValue("A$kol", $no + 1)
                 ->setCellValue("B$kol", $d->id_pasien)
-                ->setCellValue("C$kol", $d->member_id)
+                ->setCellValue("C$kol", kode($d->member_id))
                 ->setCellValue("D$kol", $d->nama_pasien)
                 ->setCellValue("E$kol", $d->alamat)
                 ->setCellValue("F$kol", $d->tgl_lahir)
@@ -344,7 +346,7 @@ class ExportController extends Controller
         foreach ($pasien as $no => $d) {
             $sheet->setCellValue("A$kol", $no + 1)
                 ->setCellValue("B$kol", $d->id_pasien)
-                ->setCellValue("C$kol", $d->member_id)
+                ->setCellValue("C$kol", kode($d->member_id))
                 ->setCellValue("D$kol", $d->nama_pasien)
                 ->setCellValue("E$kol", $d->alamat)
                 ->setCellValue("F$kol", $d->tgl_lahir)
@@ -684,7 +686,7 @@ class ExportController extends Controller
 
         $kolnak = 2;
         foreach ($anak as $d) {
-            $sheet->setCellValue("F$kolnak", $d->member_id);
+            $sheet->setCellValue("F$kolnak", kode($d->member_id));
             $sheet->setCellValue("G$kolnak", $d->nama_pasien);
 
             $kolnak++;

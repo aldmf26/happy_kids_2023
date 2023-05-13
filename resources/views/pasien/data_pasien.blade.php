@@ -50,7 +50,7 @@
                             @foreach ($pasien as $no => $n)
                             <tr>
                                 <td>{{ $no + 1 }}</td>
-                                <td>{{ $n->member_id }}</td>
+                                <td>{{ kode($n->member_id) }}</td>
                                 @if (strlen($n->nama_pasien) > 60)
                                 <td>
                                     <span class="teksLimit{{ $n->id_pasien }}">

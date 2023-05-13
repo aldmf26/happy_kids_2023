@@ -20,7 +20,7 @@
                    <td>{{ $no+1 }}</td>
                    <td>{{ $d->tgl }}</td>
                    <td>{{ $d->no_order }}</td>
-                   <td>{{ $d->member_id }}</td>
+                   <td>{{ kode($d->member_id) }}</td>
                    <td>{{ $d->nama_pasien }}</td>
                    <td>{{ $d->nama_paket }}</td>
                    <td>{{ $d->kredit }}</td>

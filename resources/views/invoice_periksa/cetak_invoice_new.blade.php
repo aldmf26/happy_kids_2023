@@ -82,7 +82,7 @@
                         <tr>
                             <td>No.RM</td>
                             <td>:</td>
-                            <td>{{ $invoice2->member_id }}</td>
+                            <td>{{ kode($invoice2->member_id) }}</td>
                         </tr>
                         <tr>
                             <td>Alamat</td>
