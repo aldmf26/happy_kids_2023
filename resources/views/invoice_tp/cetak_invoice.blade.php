@@ -76,7 +76,7 @@
                         <tr>
                             <td>No. RM</td>
                             <td>:</td>
-                            <td>{{$invoice->member_id}}</td>
+                            <td>{{$invoice->member}}</td>
                         </tr>
                         <tr>
                             <td>Alamat</td>

@@ -170,7 +170,7 @@ class Invoice_tp extends Controller
         $id_invoice_therapy = $r->id_invoice_therapy;
         $member_id = $r->member_id;
 
-        $invoice =  DB::selectOne("SELECT a.id_invoice_therapy, a.tgl, a.no_order, b.nama_pasien,b.alamat, a.member_id, b.no_hp
+        $invoice =  DB::selectOne("SELECT b.member_id as member, a.id_invoice_therapy, a.tgl, a.no_order, b.nama_pasien,b.alamat, a.member_id, b.no_hp
         FROM invoice_therapy AS a
         LEFT JOIN dt_pasien AS b ON b.id_pasien = a.member_id
         WHERE a.id_invoice_therapy = '$id_invoice_therapy'");
