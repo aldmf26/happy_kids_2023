@@ -29,19 +29,34 @@
                         <div class="card">
                             <div class="card-header">
                                 @if (Auth::user()->role == 'Presiden')
-                                <a href="#" data-bs-toggle="modal" data-bs-target="#tambah"
+                                    @if (date('d-m-Y') == date('d-m-t'))
+                                        <a href="#" data-bs-toggle="modal" data-bs-target="#penutup"
+                                            class="btn icon icon-left btn-primary"
+                                            style="float: right; margin-left: 4px;"><i class="bi bi-check"></i>
+                                            Tutup Saldo</a>
+                                    @endif
+                                    <a href="#" data-bs-toggle="modal" data-bs-target="#tambah"
                                         class="btn icon icon-left btn-primary" style="float: right;"><i
                                             class="bi bi-plus"></i>
                                         Saldo Akhir</a>
+
                                     <a href="#" data-bs-toggle="modal" data-bs-target="#import"
                                         class="btn icon icon-left btn-primary me-1" style="float: right;"><i
                                             class="fas fa-file-import"></i>
                                         Import</a>
-                                    
                                 @endif
                                 <x-btn-aldi />
                             </div>
                             <div class="card-body">
+
+                                @if (session()->has('tgl1Penutup'))
+                                    <div class="alert alert-success">
+                                        <i class="bi bi-file-excel"></i> Saldo
+                                        <b><em>{{ date('m', strtotime(Session::get('tgl1Penutup'))) }}</em></b>
+                                        Saldo Sudah Di Tutup ({{ Session::get('count') }} Data).
+                                    </div>
+                                @endif
+
                                 <table class="table table-hover" id="table1">
                                     <thead>
                                         <tr>
@@ -137,8 +152,8 @@
 
                             <div class="col-lg-2">
                                 <label for="">Jumlah</label>
-                                <input type="number" name="jumlah[]" class="form-control  jumlah1 jumlah" value="1"
-                                    count="1">
+                                <input type="number" name="jumlah[]" class="form-control  jumlah1 jumlah"
+                                    value="1" count="1">
                             </div>
                             <div class="col-lg-2">
                                 <label for="">Aksi</label><br>
@@ -366,6 +381,26 @@
         </div>
     </form>
 
+    <form action="{{ route('penutup') }}" method="POST">
+        @csrf
+        <div class="modal fade" id="penutup" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-body">
+                        <div class="row">
+                            <h5 class="text-danger ms-4 mt-4"><i class="fas fa-window-close"></i> Saldo Penutup</h5>
+                            <p class=" ms-4 mt-4">Apa anda yakin ingin menutup saldo ?</p>
+
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-outline-danger" data-bs-dismiss="modal">Batal</button>
+                        <button type="submit" class="btn btn-danger">Save</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
     <style>
         .modal-lg-max2 {
             max-width: 700px;

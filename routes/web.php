@@ -203,6 +203,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('editPaketTerapi', [Data_paket_pasien::class, 'editPaketTerapi'])->name('editPaketTerapi');
     Route::post('save_saldo_pasien', [Data_paket_pasien::class, 'save_saldo_pasien'])->name('save_saldo_pasien');
     Route::get('tambah_paket_saldo', [Data_paket_pasien::class, 'tambah_paket_saldo'])->name('tambah_paket_saldo');
+    Route::post('penutup', [Data_paket_pasien::class, 'penutup'])->name('penutup');
 
     Route::get('void', [VoidController::class, 'index'])->name('void');
     Route::get('loadScreening', [VoidController::class, 'loadScreening'])->name('loadScreening');

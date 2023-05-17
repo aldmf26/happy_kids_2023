@@ -638,7 +638,7 @@ class ExportController extends Controller
         $sheet = $spreadsheet->getActiveSheet();
         $sheet->setTitle('Format Saldo Paket');
 
-        $sheet->getStyle("A2:C2")->getFill()
+        $sheet->getStyle("A2:D2")->getFill()
             ->setFillType(\PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID)
             ->getStartColor()
             ->setARGB('f2d06b');
@@ -649,12 +649,11 @@ class ExportController extends Controller
             ->setCellValue('A2', 'isikan member id anak')
             ->setCellValue('A3', 'isikan data di baris ini ...')
 
-            ->setCellValue('B1', 'Nama Therapist')
-            ->setCellValue('B2', 'Kolom ini diisi dengan nama therapist yang sesuai dengan data')
+            ->setCellValue('B1', 'ID Therapist')
+            ->setCellValue('B2', 'Kolom ini diisi dengan ID therapist yang sesuai')
 
-            ->setCellValue('C1', 'Saldo Akhir')
-            ->setCellValue('C2', 'Kolom ini diisi dengan angka bulat contoh: 10');
-
+            ->setCellValue('C1', 'Saldo')
+            ->setCellValue('C2', 'Kolom ini diisi misal minus : -3 maka masuk kredit, dan jika tidak minus masuk debit');
 
         $style = [
             'font' => array(
@@ -705,7 +704,7 @@ class ExportController extends Controller
 
         $sheet->getStyle("F1:G" . $batas)->applyFromArray($style);
         $sheet->getStyle("I1:K" . $batas2)->applyFromArray($style);
-        $sheet->getStyle("A1:C3")->applyFromArray($style);
+        $sheet->getStyle("A1:D3")->applyFromArray($style);
 
 
         $writer = new Xlsx($spreadsheet);
@@ -726,26 +725,28 @@ class ExportController extends Controller
             $reader = new \PhpOffice\PhpSpreadsheet\Reader\Xlsx;
             $spreadsheet = $reader->load($file);
             $sheet = $spreadsheet->getActiveSheet()->toArray(null, true, true, true);
-            $id = [];
             for ($i = 3; $i < count($sheet); $i++) {
                 $A = $sheet[$i]['A'];
                 $B = $sheet[$i]['B'];
                 $C = $sheet[$i]['C'];
-                if (!empty($A) && !empty($B) && !empty($C)) {
 
+                if (!empty($A) && !empty($B) && !empty($C)) {
                     $invoice = DB::selectOne("SELECT max(a.urutan) as urutan FROM invoice_therapy as a");
                     $no_order = empty($invoice->urutan) ? 1001 : $invoice->urutan + 1;
-
+                    
                     $getPasien = DB::table('dt_pasien')->where('member_id', $A)->first();
                     $getTerapi = DB::table('dt_therapy as a')
                         ->join('dt_paket as b', 'a.id_paket', 'b.id_paket')
-                        ->where('a.nama_therapy', $B)
+                        ->where('a.id_therapy', $B)
                         ->first();
+                    if(empty($getTerapi)) {
+                        break;
+                    }
                     DB::table('saldo_therapy')->insert([
                         'no_order' => 'HK-' . $no_order,
                         'id_paket' => $getTerapi->id_paket,
                         'debit' => $C,
-                        'id_therapist' => $getTerapi->id_therapy,
+                        'id_therapist' => $B,
                         'kredit' => 0,
                         'total_rp' => $getTerapi->harga * $C,
                         'member_id' => $getPasien->id_pasien,
@@ -763,7 +764,6 @@ class ExportController extends Controller
                         'admin' => 'import',
                     ]);
                 }
-                break;
             }
 
             return redirect()->route('dt_paket_pasien')->with('sukses', 'Berhasil Import Data');
