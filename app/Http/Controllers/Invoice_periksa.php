@@ -136,8 +136,10 @@ class Invoice_periksa extends Controller
         $invoice = DB::select("SELECT * FROM invoice_periksa as a left join tb_nominal as b on b.id_nominal = a.jenis where a.no_order =  '$r->no_order' and a.ket is NULL");
         $invoice3 = DB::selectOne("SELECT sum(a.rupiah) as nominal FROM invoice_periksa as a left join tb_nominal as b on b.id_nominal = a.jenis where a.no_order =  '$r->no_order' and a.ket is NOT NULL");
         
+        $invoice2 = DB::selectOne("SELECT  a.*, b.nama_pasien,b.member_id as memberPasien, b.alamat FROM invoice_periksa as a left join dt_pasien as b on b.id_pasien =  a.member_id where a.no_order = '$r->no_order'");
+       
         $data = [
-            'invoice2' => DB::selectOne("SELECT  * FROM invoice_periksa as a left join dt_pasien as b on b.id_pasien =  a.member_id where a.no_order = '$r->no_order'"),
+            'invoice2' => $invoice2,
             'invoice' =>  $invoice,
             'invoice3' =>  $invoice3,
             'alamat' => DB::table('h1')->where('id_h1', '12')->first()

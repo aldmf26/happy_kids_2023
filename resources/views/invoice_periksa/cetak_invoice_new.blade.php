@@ -82,7 +82,7 @@
                         <tr>
                             <td>No.RM</td>
                             <td>:</td>
-                            <td>{{ kode($invoice2->member_id) }}</td>
+                            <td>{{ kode($invoice2->memberPasien) }}</td>
                         </tr>
                         <tr>
                             <td>Alamat</td>
@@ -112,14 +112,14 @@
 
                         <tr>
                             <td>Administrasi</td>
-                            <td align="right">Rp. {{ number_format($invoice3->nominal, 0) }}</td>
+                            <td align="right">Rp. 35,000</td>
                         </tr>
 
                         <tr>
                             <th style="text-align: center">
-                                {{ \Nasution\Terbilang::convert($total + $invoice3->nominal) }}
+                                {{ \Nasution\Terbilang::convert($total + 35000) }}
                                 rupiah</th>
-                            <th style="text-align: right">Total Rp.{{ number_format($total + $invoice3->nominal, 0) }}
+                            <th style="text-align: right">Total Rp. {{number_format($total + 35000,0)}}
 
                             </th>
                         </tr>
@@ -137,7 +137,7 @@
                     }
                 </style>
                 <div class="col-4">
-                    <p class="ttd">Banjarmasin,{{ date('F d, Y', strtotime($invoice2->tgl)) }}</p>
+                    <p class="ttd">Banjarmasin,{{ date('F d, Y',strtotime($invoice2->tgl))}} </p>
                     <br>
                     <br>
                     <p class="ttd fw-bold">( {{ Auth::user()->name }} ) </p>

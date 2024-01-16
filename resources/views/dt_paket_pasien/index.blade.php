@@ -84,7 +84,7 @@
                                                 <td>
                                                     <a href="#" data-bs-toggle="modal" data-bs-target="#view"
                                                         class="btn btn-primary btn-sm view"
-                                                        member_id="{{ $n->id_pasien }}"><i class="bi bi-folder-check"></i>
+                                                        member_id="{{ $n->member_id }}"><i class="bi bi-folder-check"></i>
                                                     </a>
                                                 </td>
                                             </tr>

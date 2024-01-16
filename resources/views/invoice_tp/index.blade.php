@@ -41,6 +41,8 @@
                             class="btn icon icon-left btn-primary" style="float: right;"><i class="bi bi-plus"></i>
                             Buat Invoice Baru</a>
                         <x-btn-aldi />
+                        @include('invoice_periksa.view')
+
 
                     </div>
                     <div class="card-body">

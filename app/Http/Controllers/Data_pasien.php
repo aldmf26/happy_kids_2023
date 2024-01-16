@@ -105,6 +105,7 @@ class Data_pasien extends Controller
     public function get_pasien(Request $r)
     {
         $pasien = DB::table('dt_pasien')->where('member_id', $r->member_id)->first();
+      
         // $kunjungan = DB::table('saldo_therapy')->where('member_id', $r->member_id)->first();
         $kunjungan = DB::selectOne("SELECT * FROM saldo_therapy as a where a.member_id = '$r->member_id' and a.id_paket = '$r->id_paket'");
         $kunjungan6bulan = DB::selectOne("SELECT tgl FROM saldo_therapy as a WHERE a.member_id = '$r->member_id' and  a.id_paket = '$r->id_paket' ORDER BY id_saldo_therapy  DESC LIMIT 1");

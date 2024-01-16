@@ -11,7 +11,7 @@ class Invoice_tp extends Controller
     function index(Request $r)
     {
 
-        $tgl1 = $r->tgl1 ?? date('Y-m-01');
+        $tgl1 = $r->tgl1 ?? date('Y-m-1');
         $tgl2 =  $r->tgl2 ?? date('Y-m-t');
 
         $data = [

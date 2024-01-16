@@ -83,7 +83,7 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <h4 class="modal-title" id="myModalLabel33">
-                        Edit Therapist
+                        Edit Therapist asdasd
                     </h4>
                     <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
                         <i data-feather="x"></i>
@@ -92,7 +92,7 @@
                 <form action="#">
                     <div class="modal-body">
                         <div class="row">
-                            <div class="col-lg-8">
+                            <div class="col-lg-6">
                             
                                 <div class="form-group">
                                     <label>Nama Therapist </label>
@@ -101,13 +101,13 @@
                                         class="form-control" />
                                 </div>
                             </div>
-                            <div class="col-lg-4">
+                            <div class="col-lg-6">
                                 <div class="form-group">
                                     <label>Data Paket </label>
                                     <select name="id_paket" id="" class="form-control choices">
                                         <option value="">- Pilih Paket -</option>
                                         @foreach ($paket as $d)
-                                            <option {{$i->id_paket == $d->id_paket ? 'selected' : ''}} value="{{ $d->id_paket }}">{{ $d->nama_paket }}</option>
+                                            <option {{$i->id_paket == $d->id_paket ? 'selected' : ''}} value="{{ $d->id_paket }}">{{ $d->nama_paket }} : {{ number_format($d->harga,0) }}</option>
                                         @endforeach
                                     </select>
                                 </div>

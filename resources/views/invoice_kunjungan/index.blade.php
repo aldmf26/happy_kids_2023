@@ -30,7 +30,7 @@
                         style="float: right;"><i class="bi bi-plus"></i>
                         Buat Invoice Baru</a>
                     <x-btn-aldi  />
-                  
+                  @include('invoice_periksa.view')
                 </div>
                 <div class="card-body">
                     <table class="table table-hover" id="table1">
@@ -93,7 +93,7 @@
                     <div class="row">
                         <div class="col-lg-8">
                             <div class="form-group">
-                            <label for="">No Rekam Medis</label>
+                            <label for="">No Rekam Medis </label>
                             <select name="member_id" id="" class="choices form-select pilih_rek">
                                 <option value="">--Pilih data--</option>
                                 @foreach ($dt_pasien as $d)

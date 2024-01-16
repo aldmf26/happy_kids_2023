@@ -43,7 +43,8 @@ class Data_paket_pasien extends Controller
             FROM saldo_therapy as a 
             LEFT JOIN dt_paket as b on b.id_paket = a.id_paket
             LEFT JOIN dt_therapy AS c ON c.id_therapy = a.id_therapist
-            WHERE a.member_id = '$member_id' 
+            LEFT JOIN dt_pasien as d on d.id_pasien = a.member_id
+            WHERE d.member_id = '$member_id' 
             GROUP BY a.id_paket"),
         ];
         return view('dt_paket_pasien.view', $data);

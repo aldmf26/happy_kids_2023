@@ -15,7 +15,7 @@ class Invoice_kunjungan extends Controller
 {
     function index(Request $r)
     {
-        $tgl1 = $r->tgl1 ?? date('Y-m-01');
+        $tgl1 = $r->tgl1 ?? date('Y-m-1');
         $tgl2 =  $r->tgl2 ?? date('Y-m-t');
 
         $data = [
@@ -36,12 +36,14 @@ class Invoice_kunjungan extends Controller
     public function data_paket_kunjungan(Request $r)
     {
         $member_id = $r->member_id;
+        $pasien = DB::table('dt_pasien')->where('id_pasien',$member_id)->first();
         $data = [
             'invoice_kunjungan' => DB::select("SELECT a.id_paket, a.id_therapist,  b.nama_paket, c.nama_therapy, sum(a.debit) as debit, sum(a.kredit) as kredit, a.total_rp, a.no_order
             FROM saldo_therapy as a 
             LEFT JOIN dt_paket as b on b.id_paket = a.id_paket
             LEFT JOIN dt_therapy AS c ON c.id_therapy = a.id_therapist
-            WHERE a.member_id = '$member_id'
+            LEFT JOIN dt_pasien as d ON d.id_pasien = a.member_id
+            WHERE d.member_id = '$pasien->member_id'
             GROUP BY a.id_paket"),
         ];
         return view('invoice_kunjungan.dt_paket', $data);
