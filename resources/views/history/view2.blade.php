@@ -3,7 +3,7 @@
    <h3 class="text-danger"><em>Data Tidak Ada !</em></h3>
    @else
    <table class="table table-hover" id="table1">
-       <thead>
+       <thead class="bg-primary">
            <tr>
                <th>#</th>
                <th>Tanggal</th>
@@ -11,7 +11,7 @@
                <th>Member ID</th>
                <th>Nama Pasien</th>
                <th>Nama Paket</th>
-               <th>Paket Terpakai</th>
+               <th class="text-end">Paket Terpakai</th>
            </tr>
        </thead>
        <tbody>
@@ -23,7 +23,7 @@
                    <td>{{ kode($d->member_id) }}</td>
                    <td>{{ $d->nama_pasien }}</td>
                    <td>{{ $d->nama_paket }}</td>
-                   <td>{{ $d->kredit }}</td>
+                   <td align="right">{{ $d->kredit }}</td>
                </tr>
            @endforeach
        </tbody>
