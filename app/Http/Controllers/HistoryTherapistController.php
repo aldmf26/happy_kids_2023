@@ -11,7 +11,7 @@ class HistoryTherapistController extends Controller
     {
         $data = [
             'title' => 'History Therapist',
-            'history' => DB::table('dt_therapy')->where('nonaktif', 'T')->get()
+            'history' => DB::table('dt_therapy as a')->join('dt_paket as b', 'a.id_paket', 'b.id_paket')->get()
         ];
         return view('history.history',$data);
     }
