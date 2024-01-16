@@ -37,6 +37,7 @@
                                             <th>#</th>
                                             <th>Nama Therapist</th>
                                             <th>Nama Paket</th>
+                                            <th class="text-end">Harga</th>
                                             <th width="25%">Aksi</th>
                                         </tr>
                                     </thead>
@@ -46,6 +47,7 @@
                                                 <td>{{ $no + 1 }}</td>
                                                 <td>{{ $d->nama_therapy }}</td>
                                                 <td>{{$d->nama_paket}}</td>
+                                                <td align="right">{{number_format($d->harga,0)}}</td>
                                                 <td>
                                                     <a href="#" class="btn btn-primary btn-sm view2"
                                                         id_therapy="{{ $d->id_therapy }}">History
